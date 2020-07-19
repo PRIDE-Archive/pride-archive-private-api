@@ -57,3 +57,15 @@ twitter:
     consumer.secret: $NOT_USED
     token: $NOT_USED
     token.secret: $NOT_USED
+
+#aap props
+aap:
+  reset.url: $aap_reset_url
+  auth.url: $aap_auth_url
+  domain:
+    management.url: $aap_domain_management_url
+    url: $aap_domain_url
+  pride.service:
+    uname: $aap_pride_user
+    pwd: $aap_pride_passwd
+jwt.certificate: $aap_jwt_cer
