@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,9 @@ import java.nio.charset.Charset;
 @Slf4j
 public class LoginController {
 
-    private UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
 
+    @Autowired
     public LoginController(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }

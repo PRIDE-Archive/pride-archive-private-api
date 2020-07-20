@@ -29,8 +29,12 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class UserProfileController {
 
+    private final UserProfileService userProfileService;
+
     @Autowired
-    private UserProfileService userProfileService;
+    public UserProfileController(UserProfileService userProfileService) {
+        this.userProfileService = userProfileService;
+    }
 
     @ApiOperation(notes = "Register a new user", value = "registration", nickname = "registerNewUser", tags = {"User"})
     @RequestMapping(method = RequestMethod.POST, path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
