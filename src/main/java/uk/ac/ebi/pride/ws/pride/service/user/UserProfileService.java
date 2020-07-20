@@ -62,7 +62,6 @@ public class UserProfileService {
         return userProfileRepoClient.updateProfile(userProfile, token);
     }
 
-
     public UserSummary getProfile(String jwtToken) throws Exception {
         return userProfileRepoClient.viewProfile(jwtToken);
     }

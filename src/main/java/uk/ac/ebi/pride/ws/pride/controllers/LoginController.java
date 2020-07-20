@@ -5,14 +5,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import uk.ac.ebi.pride.archive.repo.models.user.Credentials;
 import uk.ac.ebi.pride.ws.pride.service.user.UserProfileService;
 import uk.ac.ebi.pride.ws.pride.utils.APIError;
@@ -24,9 +23,8 @@ import java.nio.charset.Charset;
 @Slf4j
 public class LoginController {
 
-    private final UserProfileService userProfileService;
+    private UserProfileService userProfileService;
 
-    @Autowired
     public LoginController(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }
@@ -44,10 +42,10 @@ public class LoginController {
         String email = credentials.getUsername();
         try {
             jwtToken = userProfileService.getAAPToken(credentials);
-        } catch (HttpClientErrorException e) {
+        } catch (HttpStatusCodeException httpException) {
             String s = "Username/password wrong : " + email;
             log.info(s);
-            throw e;
+            throw httpException;
         } catch (Exception e) {
             String message = "Error while getting AAP token : " + email;
             log.error(message);
