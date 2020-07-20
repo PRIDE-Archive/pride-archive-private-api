@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.HttpClientErrorException;
 import uk.ac.ebi.pride.archive.repo.models.user.Credentials;
 import uk.ac.ebi.pride.ws.pride.service.user.UserProfileService;
 import uk.ac.ebi.pride.ws.pride.utils.APIError;
@@ -44,7 +44,7 @@ public class LoginController {
         String email = credentials.getUsername();
         try {
             jwtToken = userProfileService.getAAPToken(credentials);
-        } catch (HttpStatusCodeException httpException) {
+        } catch (HttpClientErrorException httpException) {
             String s = "Username/password wrong : " + email;
             log.info(s);
             throw httpException;
