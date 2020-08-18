@@ -6,11 +6,11 @@ variables:
   DOCKER_PULL_SECRET: pride-gitlab-docker-secret
   IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
 
-#build:
-#  image: maven:3.3.9-jdk-8-alpine
-#  stage: build
-#  script:
-#    - mvn $MAVEN_CLI_OPTS compile
+build:
+  image: maven:3.3.9-jdk-8-alpine
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS compile
 
 docker_build:
   image: docker:18.09
@@ -28,7 +28,7 @@ docker_build:
     - docker build -t $IMAGE .
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker push $IMAGE
-#  when: manual
+  when: manual
 
 #shouldn't be depolyed to HH as NFS sync is not real-time
 #kube_deploy_prod_hh:
